@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html  ng-app="AppTasks">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>SIMPLE TODO LIST</title>
+      <link href="/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/css/style.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="/fonts/ptsans.css" />
+  </head>
+  <body>
+  <header class="grid grid-pad">
+          <h1>SIMPLE TODO LIST<span>FROM RUBY GARAGE<span></h1>
+  </header>
+  <div id="preloader"></div>
+  <div class="container-fluid" ng-controller="ProjectController">
+	<div class="row login-panel">
+		<div class="col-md-4">
+		</div>
+		<div class="col-md-4" id="login_form">
+			<div class="panel panel-primary login-panel1">
+				<div class="panel-heading">
+					<h3 class="panel-title">Регистрация</h3>
+				</div>
+				<div class="panel-body">
+					<form role="form" action="" method="post">
+						<div class="form-group">
+							<label for="name">Ник</label>
+							<input class="form-control" id="name" ng-model="name" type="text">
+						</div>
+						<div class="form-group">
+							<label for="password">Пароль</label>
+							<input class="form-control" id="password" ng-model="password" type="password">
+						</div>
+                        <div class="radio">
+                            <label><input type="radio" name="action" ng-model="action" id="action" value="loginUser">Авторизация</label>
+                            <label class="pull-right"><input type="radio" name="action" ng-model="action" id="action" value="addUser">Регистрация</label>
+                        </div>
+                        <div ng-repeat="user in user" class="alert {{user.class}}">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>OK!</strong> {{user.message}}.
+                        </div>
+						<button type="button" ng-click="SubmitForm(action,name,password)" class="btn btn-default">Отправить</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+		</div>
+	</div>
+
+
+      <div class="row tasks-panels">
+          <div class="panel panel-primary"   ng-repeat="projects in projects">
+              <div class="panel-heading">
+                  <div>
+                        {{projects.name}}
+                        <span>
+                            <i class="glyphicon glyphicon-pencil"  ng-click="editProject(projects)"></i> |
+                            <i class="glyphicon glyphicon-trash" ng-click="deleteProject(projects)"></i>
+					    </span>
+                  </div>
+              </div>
+              <div class="panel-body">
+                  <div class="add_block">
+                      <img src="images/plus.png"><input type="text" ng-model="projects.addtask"><input ng-click="addTask(projects)" type="button" value="Add Task">
+                  </div>
+                  <div class="list_block">
+                      <table>
+                          <tr ng-repeat="task in projects.tasks" >
+                              <td class="right_border"><input type="checkbox" ng-click="taskChengeStatus(task)" ng-model="task.status" ng-true-value="'1'" ng-false-value="'0'"></td>
+                              <td class="left_border"><div class="done" ng-if="task.status == '1'">{{task.name}}</div><div ng-if="task.status == '0'">{{task.name}}</div></td>
+                              <td><i class="glyphicon glyphicon-pencil" ng-click="editTask(task)"></i> | <i class="glyphicon glyphicon-trash" ng-click="deleteTask(task.id)"></i></td>
+                          </tr>
+                      </table>
+                  </div>
+              </div>
+          </div>
+
+          <a href="#" class="addlist" ng-click="newProject()"><img src="/images/addlist.png" alt=""></a>
+          <a href="#" class="addlist" ng-click="logout()"><img src="/images/logout.png" alt=""></a>
+      </div>
+
+      <div class="modal fade" id="editProjectModal" role="dialog" aria-labelledby="editProjectModal" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                      <h4 class="modal-title" id="myModalLabel">{{Modal_title}}</h4>
+                  </div>
+                  <div class="modal-body">
+                      <input type="hidden" name="id" ng-model="Modal_id">
+                      <div class="form-group">
+                          <label for="name">Название</label>
+                          <input class="form-control" id="name" ng-model="Modal_name" type="text">
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                      <button type="button" ng-click="modal_submit()" class="btn btn-primary">Сохранить</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="/js/scripts.js"></script>
+  </body>
+</html>
