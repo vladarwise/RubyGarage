@@ -19,7 +19,7 @@ SELECT projects.id, projects.name, COUNT(tasks.id) AS task_count FROM tasks RIGH
 ```
 4 get the tasks for all projects having the name beginning with “N” letter
 ```sql 
-SELECT * FROM tasks WHERE name LIKE 'N%';
+SELECT tasks.*, projects.name as project_name FROM tasks RIGHT JOIN projects ON tasks.project_id = projects.id WHERE projects.name LIKE 'N%'
 ```
 5 get the list of all projects containing the ‘a’ letter in the middle of the name, and show the tasks count near each project. Mention that there can exist projects without tasks and tasks with project_id=NULL
 ```
