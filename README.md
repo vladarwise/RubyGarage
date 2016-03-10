@@ -34,6 +34,6 @@ sql
 sql
 ```
 8 get the list of project names having more than 10 tasks in status ‘completed’. Order by project_id
-```
-sql
+```sql
+SELECT projects.name FROM tasks RIGHT JOIN projects ON tasks.project_id = projects.id WHERE tasks.status='completed' GROUP BY projects.id HAVING COUNT(tasks.id)>10 ORDER BY projects.name
 ```
