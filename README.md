@@ -10,8 +10,8 @@ RubyGarage test project
 SELECT DISTINCT status FROM tasks ORDER BY status;
 ```
 2 get the count of all tasks in each project, order by tasks count descending
-```
-sql 
+```sql 
+SELECT projects.id, projects.name, COUNT(tasks.id) AS task_count FROM tasks RIGHT JOIN projects ON tasks.project_id = projects.id GROUP BY projects.id ORDER BY task_count DESC
 ```
 3 get the count of all tasks in each project, order by projects names
 ```
