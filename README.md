@@ -26,8 +26,8 @@ SELECT tasks.*, projects.name as project_name FROM tasks RIGHT JOIN projects ON 
 SELECT projects.name, COUNT(tasks.id) AS task_count FROM tasks RIGHT JOIN projects ON tasks.project_id = projects.id WHERE projects.name LIKE '%a%' GROUP BY projects.id ORDER BY projects.name
 ```
 6 get the list of tasks with duplicate names. Order alphabetically
-```
-sql
+```sql
+SELECT * FROM tasks WHERE name IN (SELECT name FROM tasks GROUP BY name HAVING COUNT(*)>1) ORDER BY name
 ```
 7 get the list of tasks having several exact matches of both name and status, from the project ‘Garage’. Order by matches count
 ```
